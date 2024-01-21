@@ -11,4 +11,5 @@ Currently, two official plugins are available:
 -> npm  create vite@latest     (to create react project)
 -> npm i 
 -> npm i bootstrap@5.3.2    
--> 
+-> npm i react-router-dom
+-> npm i react-router
