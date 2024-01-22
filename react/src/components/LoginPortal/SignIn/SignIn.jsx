@@ -11,7 +11,7 @@ const SignIn = () => {
             <Header />
             <section className="vh-100 p-3 p-md-4 p-xl-5" style={{ backgroundColor: "rgb(238, 238, 238)" }}>
                 <div className="container">
-                    <div className="card border-light-subtle shadow-sm" style={{ borderRadius: '25px' }}>
+                    <div className="card border-light-subtle ms-5 shadow-sm" style={{ borderRadius: '25px', width: '1170px' }}>
                         <div className="row g-0">
 
 
@@ -90,8 +90,8 @@ const SignIn = () => {
 
 
                             {/*this is for image  */}
-                            <div className="col-12 col-md-6 text-center" style={{ paddingTop: '130px' }} >
-                                <img className="img-fluid rounded-start w-100 h-100 object-fit-cover" loading="lazy" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" classNameName="img-fluid" alt=" Logo" />
+                            <div className="col-12 col-md-6 text-center" style={{ paddingTop: '150px' }} >
+                                <img className=" rounded-start  object-fit-cover" loading="lazy" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" height='350' width='550' alt=" Logo" />
                             </div>
                         </div>
                     </div>
