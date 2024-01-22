@@ -1,0 +1,12 @@
+.header-part {
+
+
+    /* width: 1280px; */
+    min-height: 100px;
+    color: black;
+    background-color: cadetblue;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 0px 40px 0px !important;
+}

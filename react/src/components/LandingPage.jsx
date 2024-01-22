@@ -1,10 +1,14 @@
+import CarouselImage from "./Carousel/Carousel";
+import Footer from "./Footer/Footer";
 import Header from "./Header/Header"
 
 const LandingPage = () => {
     return (
         <div>
+
             <Header />
-            this is landing page
+            <CarouselImage />
+            <Footer />
 
         </div>
     )

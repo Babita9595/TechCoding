@@ -1,0 +1,14 @@
+.sign-in-form {
+    width: 570px;
+    border: 2px solid black;
+    margin: 5px;
+    justify-content: center !important;
+    text-align: center;
+    align-items: center;
+}
+
+
+.login-form {
+    max-width: 500px !important;
+    margin: 5px;
+}
