@@ -1,7 +1,7 @@
 
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { UserDetailsReducer } from "./reducer/userDetails";
-import { counterReducer } from "./reducer/counter";
+
 
 //list of all type reducers in single reducer
 // const rootreducer = combineReducers({
@@ -18,7 +18,7 @@ import { counterReducer } from "./reducer/counter";
 const store = configureStore({
     reducer: {
         userDetails: UserDetailsReducer,
-        counterDetails: counterReducer
+
         // Add other slices here if needed
     },
 });

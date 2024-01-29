@@ -28,11 +28,20 @@ const SignUp = () => {
         setValited(true)
         if (form.checkValidity()) {
             const req = {
-                ...formData
+                ...formData,
+                name: formData?.name,
+                email: formData?.email,
+                password: formData?.password,
+                passwordConfirm: formData?.passwordConfirm
             }
-
-            console.log(req, 'formData')
-            axios.get('', req)
+            axios.post('http://localhost:9000/api/v1/users/signup', req)
+                .then((response) => {
+                    console.log(response, 'response')
+                })
+                .catch((err) => {
+                    console.log(err)
+                }
+                )
             localStorage.setItem('userDetails', JSON.stringify(req));
         }
 
@@ -87,7 +96,7 @@ const SignUp = () => {
                                                 <div className="d-flex flex-row align-items-center mb-4">
                                                     <i className="fas fa-key fa-lg me-3 fa-fw"></i>
                                                     <div className="form-outline flex-fill mb-0">
-                                                        <input type="password" id="form3Example4cd" className="form-control" onChange={(e) => twoWayBind('passwordconfirm', e.target.value.trim())} />
+                                                        <input type="password" id="form3Example4cd" className="form-control" onChange={(e) => twoWayBind('passwordConfirm', e.target.value.trim())} />
                                                         <label className="form-label" for="form3Example4cd">Repeat your password</label>
                                                     </div>
                                                 </div>
