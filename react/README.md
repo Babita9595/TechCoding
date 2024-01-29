@@ -13,3 +13,6 @@ Currently, two official plugins are available:
 -> npm i bootstrap@5.3.2    
 -> npm i react-router-dom
 -> npm i react-router
+-> npm i @reduxjs/toolkit
+-> npm i react-redux
+-> npm i axios

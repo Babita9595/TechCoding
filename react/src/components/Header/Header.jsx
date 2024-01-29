@@ -18,6 +18,10 @@ const Header = () => {
 
     }
 
+    const handleNavigateHome = () => {
+        navigate('*')
+    }
+
 
     return (
         <div className="header-part" >
@@ -27,7 +31,7 @@ const Header = () => {
                 </a>
 
                 <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="#" className="nav-link px-2 text-secondary">Home</a></li>
+                    <li onClick={() => { handleNavigateHome() }}><a href="#" className="nav-link px-2 text-secondary">Home</a></li>
                     <li><a href="#" className="nav-link px-2 text-white">Features</a></li>
                     <li><a href="#" className="nav-link px-2 text-white">Pricing</a></li>
                     <li><a href="#" className="nav-link px-2 text-white">FAQs</a></li>
