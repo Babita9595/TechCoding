@@ -1,9 +1,55 @@
+import { useState } from "react";
 import Header from "../../Header/Header";
-
+import axios from 'axios'
 
 
 
 const SignIn = () => {
+
+
+    const [formData, setFormData] = useState({})
+    const [validated, setValited] = useState(false)
+
+
+    const twoWayBind = (key, value) => {
+        setFormData({
+            ...formData,
+            [key]: value
+        })
+    }
+
+
+    const handleSubmitForm = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.target;
+        setValited(true)
+        if (form.checkValidity()) {
+            const req = {
+                ...formData,
+                email: formData?.email,
+                password: formData?.password,
+            }
+
+            console.log(req, 'req')
+            axios.post('http://localhost:9000/api/v1/users/login', req)
+                .then((response) => {
+                    console.log(response)
+                    if (response.status === 200) {
+                        localStorage.setItem('userDetails', JSON.stringify(response?.data?.user));
+                        localStorage.setItem('token', response?.data?.token)
+
+                    }
+                })
+                .catch((err) => {
+                    console.log(err)
+                }
+                )
+        }
+
+    }
+
     return (
 
         // <!-- Login 4 - Bootstrap Brain Component -->
@@ -26,15 +72,15 @@ const SignIn = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <form action="#!">
+                                    <form noValidate validated={validated} onSubmit={(event) => { handleSubmitForm(event) }}>
                                         <div className="row gy-3 gy-md-4 overflow-hidden">
                                             <div className="col-12">
                                                 <label for="email" className="form-label">Email <span className="text-danger">*</span></label>
-                                                <input type="email" className="form-control" name="email" id="email" placeholder="name@example.com" required />
+                                                <input onChange={(e) => { twoWayBind('email', e.target.value.replace('//g', ' ').toLowerCase()) }} type="email" className="form-control" name="email" id="email" placeholder="name@example.com" required />
                                             </div>
                                             <div className="col-12">
                                                 <label for="password" className="form-label">Password <span className="text-danger">*</span></label>
-                                                <input type="password" className="form-control" name="password" id="password" value="" required />
+                                                <input onChange={(e) => { twoWayBind('password', e.target.value) }} type="password" className="form-control" name="password" id="password" required />
                                             </div>
                                             <div className="col-12">
                                                 <div className="form-check">

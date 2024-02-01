@@ -32,17 +32,21 @@ const SignUp = () => {
                 name: formData?.name,
                 email: formData?.email,
                 password: formData?.password,
-                passwordConfirm: formData?.passwordConfirm
+                passwordConfirm: formData?.passwordConfirm,
+                role: formData?.role
             }
             axios.post('http://localhost:9000/api/v1/users/signup', req)
                 .then((response) => {
-                    console.log(response, 'response')
+                    if (response.status === 201) {
+                        localStorage.setItem('userDetails', JSON.stringify(response?.data?.user));
+                        localStorage.setItem('token', response?.data?.token)
+
+                    }
                 })
                 .catch((err) => {
                     console.log(err)
                 }
                 )
-            localStorage.setItem('userDetails', JSON.stringify(req));
         }
 
     }
@@ -100,6 +104,16 @@ const SignUp = () => {
                                                         <label className="form-label" for="form3Example4cd">Repeat your password</label>
                                                     </div>
                                                 </div>
+
+                                                <div className="d-flex flex-row align-items-center mb-4">
+                                                    <select onChange={(e) => { twoWayBind('role', e.target.value) }} class="form-select" aria-label="Default select example">
+                                                        <option selected>select role</option>
+                                                        <option value="user">user</option>
+                                                        <option value="admin">admin</option>
+
+                                                    </select>
+                                                </div>
+
 
                                                 <div className="form-check d-flex justify-content-center mb-5">
                                                     <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
