@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
+const Email = require("../utils/email");
+const crypto = require("crypto");
 
 const User = require("../models/userModel");
 
@@ -40,15 +42,20 @@ exports.signup = catchAsync(async (req, res) => {
 
 exports.login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
+
+  //1) check if email and password exists
   if (!email || !password) {
-    throw new AppError("Please provide an email and a password", 400);
+    return next(new AppError("Please provide email & password", 400));
   }
 
+  //2) check if user exists and password is correct
   const user = await User.findOne({ email }).select("+password");
+
   if (!user || !(await user.correctPassword(password, user.password))) {
-    return next(new AppError("Incorrect email or password.", "401"));
+    return next(new AppError("Incorrect email or password", 401));
   }
 
+  //3) if everything ok, send token to client
   createSendToken(user, 200, req, res);
 });
 
@@ -60,3 +67,70 @@ exports.logout = (req, res) => {
 
   res.status(200).json({ status: "success" });
 };
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  //1) Get user based on posted email
+  const user = await User.findOne({ email: req.body.email });
+  if (!user) {
+    return next(new AppError("There is no user with this email address", 404));
+  }
+
+  //2) Generate the random reset token
+  const resetToken = user.createPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  //3) Send the token in the response instead of email
+  res.status(200).json({
+    status: "success",
+    resetToken,
+  });
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+  //1) Get user based on the token
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(req.params.token)
+    .digest("hex");
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  //2) Set the new password, if token has not expired, and there is a user
+  if (!user) {
+    return next(new AppError("Token is invalid or has expired", 400));
+  }
+
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+
+  await user.save();
+
+  //3) Update the changedPasswordAt property for the current user
+  //this is done in the userModel middleware
+
+  //4) Log the user in, send JWT
+  createSendToken(user, 200, req, res);
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+  //1) Get user from the collection
+  const user = await User.findById(req.user.id).select("+password");
+
+  //2) Check if POSTed current password is correct
+  if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+    return next(new AppError("Your current password is incorrect", 401));
+  }
+
+  //3) If so, update password
+  user.password = req.body.password;
+  user.passwordConfirm = req.body.passwordConfirm;
+  await user.save();
+
+  //4) Log user in, send JWT
+  createSendToken(user, 200, req, res);
+});
