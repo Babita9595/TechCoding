@@ -16,3 +16,4 @@ Currently, two official plugins are available:
 -> npm i @reduxjs/toolkit
 -> npm i react-redux
 -> npm i axios
+-> npm i react-bootstrap

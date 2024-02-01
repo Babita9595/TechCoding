@@ -1,0 +1,11 @@
+.custom-nav-item {
+    background-color: transparent;
+    border-radius: 50px;
+
+
+    transition: background-color 0.3s ease;
+}
+
+.custom-nav-item:hover {
+    background-color: rgb(212, 158, 212);
+}

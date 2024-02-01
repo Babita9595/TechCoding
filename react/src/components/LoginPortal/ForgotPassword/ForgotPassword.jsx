@@ -1,8 +1,16 @@
 import Header from "../../Header/Header";
 import personLogo from '../../../../src/assets/logo-icon.svg'
 import './ForgotPassword.css'
+import { useNavigate } from "react-router";
 
 const ForgotPassword = () => {
+
+    const navigate = useNavigate
+
+    const NavigateToSignIn = () => {
+        navigate('/SignIn')
+    }
+
     return (
         <>
             <Header />
@@ -10,7 +18,7 @@ const ForgotPassword = () => {
             <div className="row align-items-center justify-content-center g-0 min-vh-100 mb-5 ">
                 <div className="col-lg-5 col-md-8 py-8 py-xl-0 sub-container">
 
-                    <div className="card shadow" style={{ marginBottom: "40%" }}>
+                    <div className="card shadow" style={{ marginBottom: "10%" }}>
 
                         <div className="card-body p-6">
                             <div className="mb-4">
@@ -33,7 +41,7 @@ const ForgotPassword = () => {
                                         Send Resest Link
                                     </button>
                                 </div>
-                                <span>Return to <a href="sign-in.html">sign in</a></span>
+                                <span>Return to <a href="/SignIn" onClick={() => { NavigateToSignIn() }}>sign in</a></span>
                             </form>
                         </div>
                     </div>
