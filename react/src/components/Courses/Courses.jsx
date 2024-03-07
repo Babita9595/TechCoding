@@ -13,7 +13,6 @@ const Courses = () => {
         axios.get(`http://localhost:9000/api/v1/courses`)
             .then((res) => {
                 setCourses(res?.data)
-                console.log(res?.data)
             })
             .catch((err) => console.log(err))
     }, [])
@@ -26,12 +25,16 @@ const Courses = () => {
                     courses?.courses?.map((carditem) =>
                         <div className="card">
                             <div className="property-card">
-                                <a href="#">
+                                <a href="/Courses/Details">
                                     <div className="property-image">
                                         <div className="property-image-title">
                                             image
                                         </div>
+                                        <div>
+                                            click here for details
+                                        </div>
                                     </div></a>
+
                                 <div className="property-description">
                                     <h5> {carditem?.name}</h5>
                                     <p>Lorem Ipsum Dipsum hortata. Mixcall Horcho. Mixwell Chingo. More Bingo. Lorem Ipum doth be hard.</p>

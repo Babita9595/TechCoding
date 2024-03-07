@@ -5,6 +5,7 @@ import SignIn from './components/LoginPortal/SignIn/SignIn';
 import ForgotPassword from './components/LoginPortal/ForgotPassword/ForgotPassword';
 import SideBarComponent from './components/AdminPanel/AdminDashboard.jsx/SideBar/SideBar';
 import ResetPassword from './components/LoginPortal/ResetPassword/ResetPassword';
+import DetailsPage from './components/Courses/DetailPage/DetailsPage';
 
 
 
@@ -18,6 +19,7 @@ const RouterConfig = () => {
             <Route path='/ForgotPassword' element={<ForgotPassword />} />
             <Route path='/ResetPassword' element={<ResetPassword />} />
             <Route path='/Admin/Dashboard' element={<SideBarComponent />} />
+            <Route path='Courses/Details' element={<DetailsPage />} />
         </Routes>
     )
 }
